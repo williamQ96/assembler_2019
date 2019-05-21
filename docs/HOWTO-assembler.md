@@ -1065,17 +1065,17 @@ def cli() -> object:
 And finally we should fix up names in the main program: 
 
 ```python
-def cli() -> object:
-    """Get arguments from command line"""
-    parser = argparse.ArgumentParser(description="Duck Machine Assembler (phase 1)")
-    parser.add_argument("sourcefile", type=argparse.FileType('r'),
-                            nargs="?", default=sys.stdin,
-                            help="Duck Machine assembly code file")
-    parser.add_argument("objfile", type=argparse.FileType('w'),
-                            nargs="?", default=sys.stdout, 
-                            help="Transformed assembly language file")
-    args = parser.parse_args()
-    return args
+def main():
+    """"Pre-process duck machine assembly language"""
+    args = cli()
+    lines = args.sourcefile.readlines()
+    transformed = transform(lines)
+    log.debug(f"Transformed: \n{transformed}")
+    for line in transformed:
+        print(line,file=args.objfile)
+
+if __name__ == "__main__":
+    main()
 ```
 
 At this point we should have a perfectly useless program that reads a fully resolved assembly
