@@ -218,13 +218,27 @@ def value_parse(int_literal: str) -> int:
         return int(int_literal, 10)
 
 
+def to_flag(m: str) -> CondFlag:
+    """Making a conditon code from a mnemonic
+    that might be one of the existing codes
+    like Z or NEVER or might be a combination
+    like PZ.
+    """
+    if m in [ flag.name for flag in CondFlag ]:
+        return CondFlag[m]
+    composite = CondFlag.NEVER
+    for bitname in m:
+        composite = composite | CondFlag[bitname]
+    return composite
+
+
 def instruction_from_dict(d: dict) -> Instruction:
     """Use fields of d to create an Instruction object.
     Raises key_error if a needed field is missing or
     misspelled (e.g., reg10 instead of r10)
     """
     opcode = OpCode[d["opcode"]]
-    pred = CondFlag[d["predicate"]]
+    pred = to_flag(d["predicate"])
     target = NAMED_REGS[d["target"]]
     src1 = NAMED_REGS[d["src1"]]
     src2 = NAMED_REGS[d["src2"]]
