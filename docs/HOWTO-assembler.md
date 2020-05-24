@@ -1569,6 +1569,8 @@ I would prefer to use addresses that are relative to the
 program counter.  For example, instead of "Jump to address 12", 
 I prefer "Jump forward 3 instructions" or "Jump backward 4 instructions", 
 and I similarly prefer a PC-relative address for variables. 
+Instead of "Load from address 15", I want "Load from 
+the address 12 words forward from here". 
 Using *relative* addresses makes the object code *relocatable*: 
 While we are starting all of our programs at address 0, 
 relocatable object code would work exactly the same if we moved
@@ -1640,12 +1642,12 @@ variable:
 Nonetheless the format string is a monster: 
 
 ```python
-                full = (f"{f['label']}   ADD{f['predicate']} " +
-                    f" r15,r0,r15[{pc_relative}] #{ref} " +
+                full = (f"{f['label']}   {f['opcode']}{f['predicate']} " +
+                    f" {f['target']},r0,r15[{pc_relative}] #{ref} " +
                     f" {f['comment']}")
- ```
+```
 
-Note the ```#{labelref}``` following the operands.  The translation 
+Note the ```#{ref}``` following the operands.  The translation 
 would work without this (and without preserving comments), but 
 including it makes it easier for an assembly language programmer
 to debug their code. 
