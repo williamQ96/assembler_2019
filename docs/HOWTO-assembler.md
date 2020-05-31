@@ -1062,7 +1062,7 @@ def cli() -> object:
     return args
 ```
 
-And finally we should fix up names in the main program: 
+And finally we should fix up the command line interpreter: 
 
 ```python
 def cli() -> object:

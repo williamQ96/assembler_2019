@@ -12,5 +12,12 @@ fully resolved assembly language, with numerical addresses,
 into object code.  Phase I translates assembly code with 
 symbolic labels and pseudo-operations like JUMP into the 
 fully resolved assembly language format that Phase II can 
-process.  Phase II is provided, and students must build Phase I. 
+process.  Phase II is provided, and students must build Phase I.
 
+The assembler is part of a multi-stage project in which students 
+built a CPU simulator, an assembler, and the code generator 
+for a compiler.  Together these programs allow us to write 
+programs in the Mallard language and execute those programs
+on a simulated Duck Machine. 
+
+![The Pipeline](docs/img/pipeline.png)
